@@ -10,12 +10,15 @@ body[data-theme='dark'] {
 body {
   background-color: var(--background-color);
   color: var(--font-color);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-button {
+/* button {
   background-color: var(--background-color);
   color: var(--font-color);
-}
+} */
 
 /* :root {
   --font-color: #333;
