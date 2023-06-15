@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../store/storeCreation';
+
 type LoginUserDetail = {
   accessToken: string;
   displayName: string;
@@ -26,7 +27,7 @@ const initialState: InitialState = {
     uid: '',
   },
 };
-//slice
+// slice
 const LoginSlice = createSlice({
   name: 'login',
   initialState,

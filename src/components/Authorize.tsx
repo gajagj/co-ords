@@ -5,7 +5,7 @@ const Authorize = ({ Component }: any) => {
   const isLogin = localStorage.getItem('isUserLoggedIn');
   if (isLogin !== 'true') {
     // navigate('/');
-    return <div></div>;
+    return <div />;
   }
   return <Component />;
 };
