@@ -39,10 +39,13 @@ const Login = () => {
         photoURL,
         uid,
       } = await signInWithGoogle();
+      console.log(accessToken);
       const isUserAlreadyExist = registeredUsers.find(
         (r: DocumentData) => r.email === email,
       );
-      if (!isUserAlreadyExist.accessToken) {
+      console.log(isUserAlreadyExist, 'isUserAlreadyExist');
+
+      if (!isUserAlreadyExist?.accessToken) {
         const currentUser = {
           accessToken,
           displayName,
@@ -53,14 +56,17 @@ const Login = () => {
           photoURL,
           uid,
         };
+
         const docRef = await addDoc(collection(db, 'users'), currentUser);
         console.log('Document written with ID: ', docRef.id);
         if (docRef.id) {
           localStorage.setItem('isUserLoggedIn', 'true');
+          localStorage.setItem('userDetails', JSON.stringify(currentUser));
           dispatch(setLogin(currentUser));
         }
       } else {
         localStorage.setItem('isUserLoggedIn', 'true');
+        localStorage.setItem('userDetails', JSON.stringify(isUserAlreadyExist));
         dispatch(setLogin(isUserAlreadyExist));
       }
       navigate('/home');
@@ -69,21 +75,18 @@ const Login = () => {
     }
   };
   return (
-    <div className="login__container">
-      <div className="login__section1" />
-      <div className="login__section2">
-        <h1>LOGIN</h1>
-        <form>
-          <button onClick={handleGoogleLogin} type="button">
-            <img
-              src="https://img.icons8.com/ios-filled/50/000000/google-logo.png"
-              alt="google icon"
-            />
-            <span> Continue with Google</span>
-          </button>
-        </form>
-      </div>
-    </div>
+    <>
+      <h1>LOGIN</h1>
+      <form>
+        <button onClick={handleGoogleLogin} type="button">
+          <img
+            src="https://img.icons8.com/ios-filled/50/000000/google-logo.png"
+            alt="google icon"
+          />
+          <span> Continue with Google</span>
+        </button>
+      </form>
+    </>
   );
 };
 

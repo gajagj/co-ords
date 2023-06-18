@@ -1,7 +1,7 @@
 import React from 'react';
 import MainRoutes from './routes/MainRoutes';
-import ErrorBoundary from './components/ErrorBoundary';
-import FallbackError from './FallbackError';
+import ErrorBoundary from './components/error-boundary/ErrorBoundary';
+import FallbackError from './components/error-boundary/FallbackError';
 import './App.css';
 
 function App() {
