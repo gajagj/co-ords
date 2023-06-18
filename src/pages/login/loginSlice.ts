@@ -15,8 +15,14 @@ type InitialState = {
   loginDetails: LoginUserDetail;
 };
 
+const preservedUserDetails: LoginUserDetail = localStorage.getItem(
+  'userDetails',
+)
+  ? JSON.parse(localStorage.getItem('userDetails') || '{}')
+  : null;
+
 const initialState: InitialState = {
-  loginDetails: {
+  loginDetails: preservedUserDetails || {
     accessToken: '',
     displayName: '',
     email: '',

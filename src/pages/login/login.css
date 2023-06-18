@@ -52,7 +52,7 @@ button {
   display: flex;
   align-items: center;
   text-transform: uppercase;
-  /* transition: background-color 3s; */
+  /* transition: background-color 3s;  */
 }
 
 button:hover {
