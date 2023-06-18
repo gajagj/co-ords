@@ -18,6 +18,7 @@ const Login = () => {
         doc.data(),
       );
       SetRegisteredUsers(usersFromFireStore);
+      console.log(usersFromFireStore);
     };
     getUsers();
   }, []);
@@ -34,10 +35,13 @@ const Login = () => {
         photoURL,
         uid,
       } = await signInWithGoogle();
+      console.log(accessToken);
       const isUserAlreadyExist = registeredUsers.find(
         (r: DocumentData) => r.email === email,
       );
-      if (!isUserAlreadyExist.accessToken) {
+      console.log(isUserAlreadyExist, 'isUserAlreadyExist');
+
+      if (!isUserAlreadyExist?.accessToken) {
         const currentUser = {
           accessToken,
           displayName,
@@ -49,12 +53,14 @@ const Login = () => {
           uid,
         };
         localStorage.setItem('isUserLoggedin', 'true');
+        localStorage.setItem('userDetails', JSON.stringify(currentUser));
         dispatch(setLogin(currentUser));
 
         const docRef = await addDoc(collection(db, 'users'), currentUser);
         console.log('Document written with ID: ', docRef.id);
       } else {
         localStorage.setItem('isUserLoggedin', 'true');
+        localStorage.setItem('userDetails', JSON.stringify(isUserAlreadyExist));
         dispatch(setLogin(isUserAlreadyExist));
       }
       navigate('/home');
