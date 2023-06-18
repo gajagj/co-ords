@@ -3,21 +3,26 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { DocumentData, addDoc, collection, getDocs } from 'firebase/firestore';
 import { db, signInWithGoogle } from '../../service/firebase';
-import { setLogin } from './loginSlice';
+import { LoginUserDetail, setLogin } from './loginSlice';
 import './login.css';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [registeredUsers, SetRegisteredUsers] = useState<DocumentData>([]);
+  const [registeredUsers, SetRegisteredUsers] = useState<
+    DocumentData[] | LoginUserDetail[]
+  >([]);
 
   useEffect(() => {
     const getUsers = async () => {
-      const querySnapshot = await getDocs(collection(db, 'users'));
-      const usersFromFireStore: DocumentData[] = querySnapshot.docs.map((doc) =>
-        doc.data(),
-      );
-      SetRegisteredUsers(usersFromFireStore);
+      try {
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        const usersFromFireStore: DocumentData[] | LoginUserDetail =
+          querySnapshot.docs.map((doc) => doc.data());
+        SetRegisteredUsers(usersFromFireStore);
+      } catch {
+        console.log('Error while fetching users collection data');
+      }
     };
     getUsers();
   }, []);
@@ -48,13 +53,14 @@ const Login = () => {
           photoURL,
           uid,
         };
-        localStorage.setItem('isUserLoggedin', 'true');
-        dispatch(setLogin(currentUser));
-
         const docRef = await addDoc(collection(db, 'users'), currentUser);
         console.log('Document written with ID: ', docRef.id);
+        if (docRef.id) {
+          localStorage.setItem('isUserLoggedIn', 'true');
+          dispatch(setLogin(currentUser));
+        }
       } else {
-        localStorage.setItem('isUserLoggedin', 'true');
+        localStorage.setItem('isUserLoggedIn', 'true');
         dispatch(setLogin(isUserAlreadyExist));
       }
       navigate('/home');
@@ -64,14 +70,10 @@ const Login = () => {
   };
   return (
     <div className="login__container">
-      <div className="login__section1"></div>
+      <div className="login__section1" />
       <div className="login__section2">
-        <h1>Login</h1>
+        <h1>LOGIN</h1>
         <form>
-          <label>Email : </label>
-          <input type="text" />
-          <label>Password :</label> <input type="text" />
-          <button>Login</button>
           <button onClick={handleGoogleLogin} type="button">
             <img
               src="https://img.icons8.com/ios-filled/50/000000/google-logo.png"

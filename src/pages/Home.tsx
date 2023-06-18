@@ -1,13 +1,14 @@
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logoutWithGoogle } from '../service/firebase';
 import { selectLoginDetails, setLogOut } from './login/loginSlice';
-import { useNavigate } from 'react-router-dom';
-import Authorize from '../components/Authorize';
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userDetail = useSelector(selectLoginDetails);
+  console.log('Home Component');
   return (
     <>
       <h1>
@@ -23,13 +24,12 @@ const Home = () => {
             navigate('/');
           }
         }}
+        type="button"
       >
         Logout
       </button>
     </>
   );
 };
-
-// export default Authorize(Home);
 
 export default Home;

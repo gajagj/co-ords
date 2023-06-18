@@ -92,6 +92,14 @@
         "namedComponents": ["arrow-function", "function-declaration"]
       }
     ],
-    "@typescript-eslint/no-unsafe-return": "off"
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-misused-promises": [
+      2,
+      {
+        "checksVoidReturn": {
+          "attributes": false
+        }
+      }
+    ]
   }
 }

@@ -1,6 +1,7 @@
 :root {
   --font-color: #333;
   --background-color: #eee;
+  font-family: 'Courier New', Courier, monospace;
 }
 body[data-theme='dark'] {
   --font-color: #eee;

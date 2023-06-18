@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MainRoutes from './routes/MainRoutes';
+import ErrorBoundary from './components/ErrorBoundary';
+import FallbackError from './FallbackError';
 import './App.css';
 
 function App() {
@@ -10,7 +12,11 @@ function App() {
   //   document.body.dataset.theme = 'dark';
   // };
 
-  return <MainRoutes />;
+  return (
+    <ErrorBoundary fallback={<FallbackError />}>
+      <MainRoutes />
+    </ErrorBoundary>
+  );
 }
 
 export default App;
