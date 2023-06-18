@@ -1,4 +1,7 @@
 :root {
+  --font-color: #333;
+  --background-color: #eee;
+  font-family: 'Courier New', Courier, monospace;
   --primary-color: #db0000;
   --primary-color-light: #ffe5e5;
   --secondary-color: #4581f5;

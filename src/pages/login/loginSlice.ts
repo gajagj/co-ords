@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../store/storeCreation';
 
-type LoginUserDetail = {
+export type LoginUserDetail = {
   accessToken: string;
   displayName: string;
   email: string;

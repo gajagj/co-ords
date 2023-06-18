@@ -40,6 +40,7 @@ export const logoutWithGoogle = () => {
     })
     .catch((error) => {
       console.log('Logout error', error.message);
+      return false;
     });
 };
 
