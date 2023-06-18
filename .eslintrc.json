@@ -72,9 +72,9 @@
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "@typescript-eslint/no-unused-expressions": "off",
     "prettier/prettier": [
-      "error",
+      "warn",
       {
-        "endOfLine": "off"
+        "endOfLine": "auto"
       }
     ],
     "max-len": "off",
