@@ -1,6 +1,6 @@
 import { GoogleMap, Marker, MarkerF } from '@react-google-maps/api';
-import styles from '../Home.module.css';
 import { useEffect, useMemo, useState } from 'react';
+import styles from './MapView.module.css';
 
 const MapView = () => {
   const [userLocation, setUserLocation] = useState(null);
@@ -34,15 +34,13 @@ const MapView = () => {
     return { lat: 11.1149056, lng: 77.3390336 };
   }, [userLocation]);
   return (
-    <>
-      <GoogleMap
-        mapContainerClassName={styles.googleMapContainer}
-        center={userPosition}
-        zoom={12}
-      >
-        <MarkerF position={userPosition} />
-      </GoogleMap>
-    </>
+    <GoogleMap
+      mapContainerClassName={styles.container}
+      center={userPosition}
+      zoom={12}
+    >
+      <MarkerF position={userPosition} />
+    </GoogleMap>
   );
 };
 
