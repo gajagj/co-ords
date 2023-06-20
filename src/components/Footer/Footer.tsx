@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import AddIcon from '@mui/icons-material/Add';
 import HomeIcon from '@mui/icons-material/Home';
@@ -26,6 +26,14 @@ const navItems = [
 const Footer = () => {
   const navigate = useNavigate();
   const [active, setActive] = React.useState(null);
+
+  useEffect(() => {
+    if (active === null) {
+      const path = window.location.pathname;
+      const index = navItems.findIndex((item) => item.link === path);
+      setActive(index);
+    }
+  }, []);
 
   return (
     <footer className={styles.footerWrapper}>

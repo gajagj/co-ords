@@ -1,0 +1,19 @@
+.flex {
+  display: flex;
+}
+.f-grow {
+  flex-grow: 1;
+}
+.f-basis {
+  flex-basis: 100%;
+}
+.f-column {
+  flex-direction: column;
+}
+.f-row {
+  flex-direction: row;
+}
+.f-center {
+  justify-content: center;
+  align-items: center;
+}
