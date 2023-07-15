@@ -36,23 +36,21 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className={styles.footerWrapper}>
-      <div className={styles.footerContainer}>
-        {navItems.map((item, index) => (
-          <div
-            key={index}
-            className={`${item.className} ${
-              index === active ? styles.active : ''
-            }`}
-            onClick={() => {
-              setActive(index);
-              navigate(item.link);
-            }}
-          >
-            {item.icon}
-          </div>
-        ))}
-      </div>
+    <footer className={styles.container}>
+      {navItems.map((item, index) => (
+        <div
+          key={index}
+          className={`${item.className} ${
+            index === active ? styles.active : ''
+          }`}
+          onClick={() => {
+            setActive(index);
+            navigate(item.link);
+          }}
+        >
+          {item.icon}
+        </div>
+      ))}
     </footer>
   );
 };

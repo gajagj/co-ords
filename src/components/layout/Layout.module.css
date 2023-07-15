@@ -2,8 +2,11 @@
   height: 100vh;
   width: 100vw;
   display: flex;
+  overflow: hidden;
 }
 .contentContainer {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   flex-basis: 100%;
   position: relative;
@@ -18,5 +21,6 @@
   align-items: center;
 }
 .outletContainer {
-  padding: 0 30px;
+  /* padding: 0 30px; */
+  flex-grow: 1;
 }

@@ -6,9 +6,9 @@ import MapView from '../MapView/MapView';
 import styles from './Layout.module.css';
 
 const MainLayout = ({ children }: { children: any }) => {
-  // const { isLoaded } = useLoadScript({
-  //   googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
-  // });
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
+  });
   return (
     <div className={styles.container}>
       <div className={styles.contentContainer}>
@@ -17,7 +17,7 @@ const MainLayout = ({ children }: { children: any }) => {
         <Footer />
       </div>
       <div className={styles.mapContainer}>
-        {/* {!isLoaded ? <h1>Loading...</h1> : <MapView />} */}
+        {!isLoaded ? <h1>Loading...</h1> : <MapView />}
       </div>
     </div>
   );

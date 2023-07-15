@@ -1,0 +1,72 @@
+.container {
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.container > h1 {
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.searchContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+.searchContainer > div {
+  width: 100%;
+}
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-grow: 1;
+  max-height: calc(100vh - 300px);
+}
+.userListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-grow: 1;
+  overflow: auto;
+}
+.contentContainer > .contentPlaceholder {
+  margin: auto;
+  color: #999;
+}
+.userCard {
+  display: flex;
+  gap: 10px;
+  padding: 10px 0 10px;
+  border-bottom: 1px solid #ccc;
+}
+.userImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.userName {
+  font-weight: 500;
+}
+.userEmail {
+  color: #999;
+}
+.requestButtonContainer {
+  width: fit-content;
+  height: fit-content;
+  align-self: center;
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+.requestButtonContainer > button {
+  width: 100px;
+}

@@ -12,7 +12,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userDetail = useSelector(selectLoginDetails);
-  console.log(userDetail);
 
   return (
     <header className={styles.container}>
@@ -25,19 +24,6 @@ const Header = () => {
           {userDetail?.displayName?.at(0)?.toUpperCase()}
         </Avatar>
       </Tooltip>
-      <button
-        onClick={async () => {
-          const isLoggedOut = await logoutWithGoogle();
-          if (isLoggedOut) {
-            dispatch(setLogOut());
-            localStorage.clear();
-            navigate('/');
-          }
-        }}
-        type="button"
-      >
-        Logout
-      </button>
     </header>
   );
 };

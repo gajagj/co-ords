@@ -7,21 +7,18 @@ import ProtectedRoute from './ProtectedRoute';
 import PreventedRoute from './PreventedRoute';
 import MainLayout from '../components/layout/MainLayout';
 import MiniLayout from '../components/layout/MiniLayout';
+import Add from '../pages/add/Add';
 
 function MainRoutes() {
   return (
     <BrowserRouter>
       <Routes>
         {/* unprotected routes can be added here */}
-        <Route
-          path="/"
-          index
-          element={<PreventedRoute layout={MiniLayout} component={Login} />}
-        />
+        <Route path="/" index element={<PreventedRoute component={Login} />} />
         <Route
           path="/login"
           index
-          element={<PreventedRoute layout={MiniLayout} component={Login} />}
+          element={<PreventedRoute component={Login} />}
         />
 
         {/* protected routes can be added here inside Authorize */}
@@ -32,6 +29,10 @@ function MainRoutes() {
         <Route
           path="/settings"
           element={<ProtectedRoute layout={MainLayout} component={Settings} />}
+        />
+        <Route
+          path="/add"
+          element={<ProtectedRoute layout={MainLayout} component={Add} />}
         />
         <Route path="*" element={<div>Page not found</div>} />
       </Routes>
