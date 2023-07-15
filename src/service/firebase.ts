@@ -5,7 +5,13 @@ import {
   GoogleAuthProvider,
   signOut,
 } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBP0W_CMDhKPSi1XZhoxBly7n0GtQTuAmk',
@@ -47,3 +53,35 @@ export const logoutWithGoogle = () => {
 // Export firestore database
 // It will be imported into your react app whenever it is needed
 export const db = getFirestore(app);
+
+// get all docs from user collection
+export const getAllDataFromUserCollection = async () => {
+  const db = getFirestore();
+  const colRef = collection(db, 'users');
+  const docList: any = [];
+  try {
+    const docsSnap = await getDocs(colRef);
+    docsSnap.forEach((doc) => {
+      docList.push({ ...doc.data(), docId: doc.id });
+    });
+    return docList;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+// get single doc from user collection by its docId
+export const getDocumentByDocId = async (docId: string) => {
+  const db = getFirestore();
+
+  const docRef = doc(db, 'users', docId);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data();
+  }
+  // docSnap.data() will be undefined in this case
+  console.log('No such document!');
+  return {};
+};

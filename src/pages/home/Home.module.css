@@ -18,3 +18,40 @@
   width: 100%;
   height: 100%;
 }
+
+.home__container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.home__header {
+  font-size: 2rem;
+  margin: 0.25rem 0;
+}
+
+.home__content {
+  border: 1px solid grey;
+  border-radius: 0.25rem;
+  height: 10rem;
+}
+
+.home__card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0.5rem;
+}
+
+.home__card:hover {
+  cursor: pointer;
+  background-color: #f7f9fc;
+  box-shadow: 1px 1px 3px grey;
+}
+.home__card > p:last-child {
+  background: orange;
+  height: 1.5rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  text-transform: capitalize;
+}
