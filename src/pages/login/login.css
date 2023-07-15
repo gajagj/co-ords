@@ -1,4 +1,4 @@
-.login__container {
+/* .login__container {
   display: flex;
   height: 100vh;
 }
@@ -52,10 +52,10 @@ button {
   display: flex;
   align-items: center;
   text-transform: uppercase;
-  /* transition: background-color 3s;  */
+  transition: background-color 3s;  
 }
 
 button:hover {
   background-color: rgb(252, 77, 106);
   transition: background-color 1s;
-}
+} */

@@ -10,6 +10,9 @@ export type LoginUserDetail = {
   phoneNumber: string;
   photoURL: string;
   uid: string;
+  firstName?: string;
+  lastName?: string;
+  isPasswordSet?: boolean;
 };
 type InitialState = {
   loginDetails: LoginUserDetail;
@@ -31,6 +34,9 @@ const initialState: InitialState = {
     phoneNumber: '',
     photoURL: '',
     uid: '',
+    firstName: '',
+    lastName: '',
+    isPasswordSet: false,
   },
 };
 // slice
@@ -46,6 +52,19 @@ const LoginSlice = createSlice({
     ) => {
       state.loginDetails = action.payload;
     },
+    setProfile: (
+      state: InitialState,
+      action: {
+        payload: Partial<LoginUserDetail>;
+      },
+    ) => {
+      state.loginDetails.firstName = action.payload.firstName ?? '';
+      state.loginDetails.lastName = action.payload.lastName ?? '';
+      state.loginDetails.phoneNumber = action.payload.phoneNumber ?? '';
+    },
+    setPassword: (state: InitialState, action: { payload: boolean }) => {
+      state.loginDetails.isPasswordSet = action.payload;
+    },
     setLogOut: (state) => {
       state.loginDetails = initialState.loginDetails;
     },
@@ -53,7 +72,8 @@ const LoginSlice = createSlice({
 });
 
 // actions
-export const { setLogin, setLogOut } = LoginSlice.actions;
+export const { setLogin, setLogOut, setProfile, setPassword } =
+  LoginSlice.actions;
 
 // reducer
 export default LoginSlice.reducer;

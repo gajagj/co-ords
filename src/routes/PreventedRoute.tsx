@@ -7,6 +7,10 @@ const PreventedRoute = (props: any) => {
   if (loginStatus) {
     return <Navigate to="/home" replace />;
   }
+
+  if (!Layout) {
+    return <Component {...props} />;
+  }
   return (
     <Layout>
       <Component {...props} />
