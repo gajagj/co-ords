@@ -68,7 +68,7 @@ const Add = () => {
   ) => {
     // set data for current logged user
     const userRef = doc(db, 'users', userDetails.docId);
-    const temp = await setDoc(userRef, {
+    const temp = await updateDoc(userRef, {
       requestingTo: arrayUnion({
         requestedUser: requestingEmail,
         status: 'pending',
