@@ -1,15 +1,23 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Button, CircularProgress, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Avatar from '@mui/material/Avatar';
 
-import { DocumentData, collection, getDocs } from 'firebase/firestore';
+import {
+  DocumentData,
+  collection,
+  getDocs,
+  doc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+} from 'firebase/firestore';
 import { db } from '../../service/firebase';
 import { LoginUserDetail, selectLoginDetails } from '../login/loginSlice';
 
 import styles from './Add.module.css';
-import { useSelector } from 'react-redux';
 
 const Add = () => {
   const [search, setSearch] = React.useState('');
@@ -18,7 +26,10 @@ const Add = () => {
   const userDetails = useSelector(selectLoginDetails);
   const [filteredUsers, setFilteredUsers] = React.useState<
     Partial<LoginUserDetail>[] | null
-  >(null);
+  >([]);
+  const [allUsersFromFireStore, setAllUsersFromFireStore] = React.useState<
+    DocumentData[]
+  >([]);
 
   const handleSearch = () => {
     if (search.length === 0) return;
@@ -28,8 +39,10 @@ const Add = () => {
     getDocs(collection(db, 'users'))
       .then((querySnapshot) => {
         const usersFromFireStore: DocumentData[] | Partial<LoginUserDetail> =
-          querySnapshot.docs.map((doc) => doc.data());
-
+          querySnapshot.docs.map((doc) => {
+            return { ...doc.data(), docId: doc.id };
+          });
+        setAllUsersFromFireStore(usersFromFireStore);
         const filteredUsers = usersFromFireStore.filter(
           (user: Partial<LoginUserDetail>) =>
             (user.displayName?.toLowerCase().includes(search.toLowerCase()) ||
@@ -47,6 +60,31 @@ const Add = () => {
       .finally(() => {
         setLoading(false);
       });
+  };
+
+  const handleSendRequest = async (
+    requestingEmail: string,
+    requestingDocId: string,
+  ) => {
+    // set data for current logged user
+    const userRef = doc(db, 'users', userDetails.docId);
+    const temp = await setDoc(userRef, {
+      requestingTo: arrayUnion({
+        requestedUser: requestingEmail,
+        status: 'pending',
+        docId: requestingDocId,
+      }),
+    });
+
+    // set data for friend also
+    const friendRef = doc(db, 'users', requestingDocId);
+    const tempFriend = await updateDoc(friendRef, {
+      requestedFrom: arrayUnion({
+        requestedUser: userDetails.email,
+        status: 'pending',
+        docId: userDetails.docId,
+      }),
+    });
   };
 
   return (
@@ -126,7 +164,13 @@ const Add = () => {
                     <div className={styles.userEmail}>{user.email}</div>
                   </div>
                   <div className={styles.requestButtonContainer}>
-                    <LoadingButton variant="contained" size="small">
+                    <LoadingButton
+                      variant="contained"
+                      size="small"
+                      onClick={() =>
+                        handleSendRequest(user.email!, user.docId!)
+                      }
+                    >
                       Request
                     </LoadingButton>
                   </div>

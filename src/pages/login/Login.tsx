@@ -56,7 +56,7 @@ const Login = () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'users'));
         const usersFromFireStore: DocumentData[] | LoginUserDetail =
-          querySnapshot.docs.map((doc) => doc.data());
+          querySnapshot.docs.map((doc) => ({ ...doc.data(), docId: doc.id }));
         SetRegisteredUsers(usersFromFireStore);
       } catch {
         console.log('Error while fetching users collection data');
@@ -98,6 +98,7 @@ const Login = () => {
         const docRef = await addDoc(collection(db, 'users'), currentUser);
         console.log('Document written with ID: ', docRef.id);
         if (docRef.id) {
+          currentUser.docId = docRef.id;
           localStorage.setItem('isUserLoggedIn', 'true');
           localStorage.setItem('userDetails', JSON.stringify(currentUser));
           dispatch(setLogin(currentUser));

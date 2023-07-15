@@ -13,6 +13,9 @@ export type LoginUserDetail = {
   firstName?: string;
   lastName?: string;
   isPasswordSet?: boolean;
+  docId: string;
+  requestingTo: any[];
+  requestedFrom: any[];
 };
 type InitialState = {
   loginDetails: LoginUserDetail;
@@ -37,6 +40,7 @@ const initialState: InitialState = {
     firstName: '',
     lastName: '',
     isPasswordSet: false,
+    docId: '',
   },
 };
 // slice
